@@ -52,6 +52,7 @@ From: ubuntu:18.04
     Rscript -e 'require(devtools); install_version("ROCR", version="1.0-7")' && \
     Rscript -e 'require(devtools); install_version("class", version="7.3-14")' && \
     Rscript -e 'require(devtools); install_version("mvtnorm", version="1.0-8")' && \
+    Rscript -e 'require(devtools); install_version("TH.data", version="1.0-2")' && \
     Rscript -e 'require(devtools); install_version("multcomp", version="1.4-8")' && \
     Rscript -e 'require(devtools); install_version("coin", version="1.2-2")' && \
     Rscript -e 'require(devtools); install_version("party", version="1.0-25")' && \
@@ -80,7 +81,8 @@ From: ubuntu:18.04
     eval $(conda shell.bash hook)
 
     yes | conda update conda
-    conda install -y -c numba cudatoolkit=10.2
+    conda install -y -c nvidia cudatoolkit=10.2
+    conda install -y -c conda-forge ncurses    
 
     export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/opt/miniconda3/lib"
 
@@ -148,7 +150,8 @@ From: ubuntu:18.04
     # make /bin/sh point to bash instead
     echo "dash dash/sh boolean false" | debconf-set-selections
     # TESTING
-    # DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
+    #apt install --reinstall -y libacl1 libattr1
+    #DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
     ln -sf /bin/bash /bin/sh
 
     export LD_LIBRARY_PATH="/usr/lib:$LD_LIBRARY_PATH"
